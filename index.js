@@ -82,6 +82,7 @@ var colophonemes = new Metalsmith(__dirname);
         }
 
     })
+    .use(logMessage('Annotated Angular scripts'))
     .use(function (files,metalsmith,done){
         // Bundle our javascript files using browserify
         each(Object.keys(files).filter(minimatch.filter('scripts/*.bundle.js')),bundle,done)
@@ -148,8 +149,8 @@ var colophonemes = new Metalsmith(__dirname);
         .use(logMessage('Cleaning CSS files',chalk.yellow.dim))
         .use(uncss({
             basepath: 'styles',
-            css: ['app.css'],
-            output: 'app.min.css',
+            css: ['style.css'],
+            output: 'style.min.css',
             removeOriginal: true,
             uncss: {
                 ignore: [
@@ -168,6 +169,7 @@ var colophonemes = new Metalsmith(__dirname);
                     /slabtext/,
                     /lazyload/,
                     /tooltip/,
+                    /progress-bar/,
                 ],
                 media: ['(min-width: 480px)','(min-width: 768px)','(min-width: 992px)','(min-width: 1200px)']
             }
@@ -181,16 +183,9 @@ var colophonemes = new Metalsmith(__dirname);
         .use(logMessage('Cleaned CSS files'))
         .use(uglify({
             removeOriginal: true,
-            filter: "scripts/includes/**"
+            filter: "scripts/app.js"
         }))
         .use(logMessage('Minified Javascript'))
-        .use(sitemap({
-            hostname: 'https://www.givingwhatwecan.org',
-            omitIndex: true,
-            modified: 'data.sys.updatedAt',
-            urlProperty: 'path'
-        }))
-        .use(logMessage('Built sitemap'))
         
     }
 
