@@ -1,0 +1,107 @@
+extends partial
+
+block content
+    div(ng-controller="FundraisingController")
+        h2 Progress
+        include progressbar
+
+        h2 Donations
+        .row
+            .col-md-6.well
+                ul.donations
+                    li.donation(ng-repeat="donation in donations" class="donation-{{donation.id}} {{donation.organisationslug}}")
+                        i.glyphicon.glyphicon-calendar
+                        |  {{donation.timestamp|amDateFormat:'DD MMM YYYY'}} &mdash;
+                        i.glyphicon.glyphicon-user
+                        |  {{donation.donorname}} 
+                        span(ng-show="donation.anonymous") (anonymous)
+                        | &mdash; 
+                        i.glyphicon.glyphicon-briefcase
+                        |  {{donation.organisationname}} &mdash;
+                        | £{{donation.amount}} 
+                        a(ng-click="Donation.delete(donation.id)")
+                            i.glyphicon.glyphicon-trash
+            .col-md-6
+                form(ng-submit="Donation.create()" ng-model="NewDonation")
+                    .form-group
+                        label(for="amount") Donor
+                         select.form-control(name="org" ng-model="NewDonation.donor")
+                            option(ng-repeat="donor in donors" value="{{donor.id}}") {{donor.name}}
+                    .form-group
+                        label(for="org") Organisation
+                        select.form-control(name="org" ng-model="NewDonation.organisation")
+                            option(ng-repeat="organisation in organisations" value="{{organisation.slug}}") {{organisation.name}}
+                    .form-group
+                        label(for="amount") Donation Amount
+                        input.form-control(name="name" ng-model="NewDonation.amount" type="text")
+                    .form-group
+                        label(for="amount") Date
+                        .input-group
+                            input(type="text" class="form-control" datetime-picker="dd MMMM yyyy HH:mm" ng-model="NewDonation.timestamp" is-open="isOpen")
+                            a.input-group-addon.btn.btn-default(ng-click="openCalendar($event, prop)")
+                                i.glyphicon.glyphicon-calendar
+                                | 
+                                i.caret
+                    .form-group
+                        label(for="amount") Anonymous donation?
+                            input(type="checkbox" class="form-control" ng-model="NewDonation.anonymous")
+
+                            //- input.form-control(name="name" ng-model="NewDonation.timestamp" ng-click="showDatepicker = !showDatepicker" type="text")
+                        
+                    button.btn.btn-primary(type="submit") Submit
+        hr
+        h2 Donors
+        .row
+            .col-md-6
+                ul
+                    li(ng-repeat="donor in donors" class="donor-{{donor.id}}")
+                        | {{donor.name}} 
+                        a(ng-click="Donor.delete(donor.id)")
+                            i.glyphicon.glyphicon-trash
+            .col-md-6
+                form(ng-submit="Donor.create()" ng-model="NewDonor")
+                    .form-group
+                        label(for="name") Donor Name
+                        input.form-control(name="name" ng-model="NewDonor.name" type="text")
+                    button.btn.btn-primary(type="submit") Submit
+        hr
+        h2 Organisations
+        .row
+            .col-md-6
+                ol
+                    li(ng-repeat="organisation in organisations" class="{{organisation.slug}}")
+                        | {{organisation.name}}
+                        a(ng-if="$index !== 0" ng-click="Organisation.update(organisation.slug,{precedence:organisation.precedence-1})") 
+                            i.glyphicon.glyphicon-chevron-up
+                        a(ng-if="$index !== organisations.length-1" ng-click="Organisation.update(organisation.slug,{precedence:organisation.precedence+1})") 
+                            i.glyphicon.glyphicon-chevron-down
+                        a(ng-click="Organisation.delete(organisation.slug)") 
+                            i.glyphicon.glyphicon-trash
+            .col-md-6
+                form(ng-submit="Organisation.create()" ng-model="NewOrganisation")
+                    .form-group
+                        label(for="slug") Slug
+                        input.form-control(name="slug" ng-model="NewOrganisation.slug" type="text")
+                        p.help-block (lowercase letters and dashes)
+                    .form-group
+                        label(for="name") Name
+                        input.form-control(name="name" ng-model="NewOrganisation.name" type="text")
+                        p.help-block (The full name of the organisation)
+                    button.btn.btn-primary(type="submit") Submit
+        hr
+        h2 Targets
+        .row
+            .col-md-12
+                ul
+                    li(ng-repeat="target in targets" class="target-{{target.id}}")
+                        | {{target.organisationname}} &mdash; 
+                        | £{{target.amount}} 
+                        a(ng-click="showTargetEditBox[target.id] = !showTargetEditBox[target.id]")
+                            i.glyphicon.glyphicon-edit
+                        form.form-inline(ng-show="showTargetEditBox[target.id]" ng-submit="Target.update(target.id,{amount:target.newAmount,organisation:target.organisationslug})")
+                            .form-group
+                                .input-group
+                                    span.input-group-addon £
+                                    input.form-control(ng-model="target.newAmount")
+                                    button.btn.btn-default.input-group-addon.form-control(type='submit')
+                                        i.glyphicon.glyphicon-ok

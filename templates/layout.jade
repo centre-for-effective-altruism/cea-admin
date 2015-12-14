@@ -1,0 +1,14 @@
+doctype html
+html(ng-app='cea' ng-strict-di)
+    head
+        title=title
+        link(rel='stylesheet', href='/styles/style.min.css', type="text/css", media="screen")
+        base(href='/')
+    body(ng-controller="MainController")
+        .container
+            h1.site-title {{title}}
+        .container(ui-view)
+    
+    script(src="scripts/vendor.min.js")
+    script(src="scripts/app.min.js")
+    block scripts

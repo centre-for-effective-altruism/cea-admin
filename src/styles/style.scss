@@ -1,0 +1,52 @@
+@import "partials/vendor/bootstrap.min";
+@import "partials/vendor/datetimepicker";
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+
+.form-inline .input-group-addon,
+.form-inline .input-group-btn,
+.form-inline .form-control {
+    width: auto !important;
+}
+
+
+.donations {
+	height:358px;
+	overflow: scroll;
+}
+
+.progress-bar {
+	width: 100%;
+}
+.progress-bar-donations, .progress-bar-remaining {
+	height: 20px;
+	background-color:#999;
+	display: inline-block;
+}
+.progress-bar.cea .progress-bar-donations {
+	background-color:#00355d;
+}
+.progress-bar.gwwc .progress-bar-donations {
+	background-color:#6C0000;
+}
+.progress-bar.eighty-thousand-hours .progress-bar-donations {
+	background-color:#3FBDD1;
+}
+.progress-bar.gpp .progress-bar-donations {
+	background-color:#7E95CC;
+}
+.progress-bar.eao .progress-bar-donations {
+	background-color:#383821;
+}
+
+
+/*
+$cea: #00355d;
+$gwwc: #6C0000;
+$eightythousandhours: #3FBDD1;
+$gpp: #7E95CC;
+$tlycs: #ED1A24;
+$ace: #349895;
+
+*/

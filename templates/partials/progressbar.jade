@@ -1,0 +1,9 @@
+.row
+	.col-xs-12
+		.progress-bar-wrapper
+			ul
+				li.progress-bar(ng-repeat="bar in progress" class="{{bar.organisationslug}}")
+					.progress-bar-donations(style="width:{{bar.progress}}%")
+						| £{{bar.donations}}
+					.progress-bar-remaining(style="width:{{100-bar.progress}}%")
+						| £{{bar.difference}}
