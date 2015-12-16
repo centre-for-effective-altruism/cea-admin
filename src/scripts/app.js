@@ -93,7 +93,7 @@ angular.module('cea', [
             timestamp: $scope.NewDonation.timestamp,
             anonymous: $scope.NewDonation.anonymous
         }
-        api.post('donations',data,function(data) {
+        api.post('fundraising/donations',data,function(data) {
             $scope.donations = data;
             $scope.NewDonation = {
                 timestamp:moment().format()
@@ -103,14 +103,14 @@ angular.module('cea', [
 
     $scope.Donation.read = function(){
         // Get all donations
-        api.get('donations', function(data){
+        api.get('fundraising/donations', function(data){
             $scope.donations = data;
         })
         
     }
 
     $scope.Donation.delete = function(ID){
-        api.delete('donations/'+ID,function(data) {
+        api.delete('fundraising/donations/'+ID,function(data) {
             $scope.donations = data;
         })
     }
@@ -125,7 +125,7 @@ angular.module('cea', [
         }
         console.log($scope.NewDonor)
 
-        api.post('donors',data,function(data) {
+        api.post('fundraising/donors',data,function(data) {
             $scope.donors = data;
             $scope.NewDonor = {}
         });
@@ -133,13 +133,13 @@ angular.module('cea', [
 
     $scope.Donor.read = function(){
         // Get all donors
-        api.get('donors',function(data) {
+        api.get('fundraising/donors',function(data) {
             $scope.donors = data;
         });
     }
 
     $scope.Donor.delete = function(ID){
-        api.delete('donors/'+ID,function(data) {
+        api.delete('fundraising/donors/'+ID,function(data) {
             $scope.donors = data;
         });
     }
@@ -153,7 +153,7 @@ angular.module('cea', [
             slug: $scope.NewOrganisation.slug,
             name: $scope.NewOrganisation.name
         }
-        api.post('organisations',data,function(data) {
+        api.post('fundraising/organisations',data,function(data) {
             $scope.organisations = data;
             $scope.NewOrganisation = {}
         });
@@ -161,20 +161,20 @@ angular.module('cea', [
 
     $scope.Organisation.read = function(){
         // Get all organisations
-        api.get('organisations',function(data) {
+        api.get('fundraising/organisations',function(data) {
             $scope.organisations = data;
         })
     }
 
     $scope.Organisation.update = function(slug,data){
         data.slug = data.slug || slug;
-        api.put('organisations',function(data) {
+        api.put('fundraising/organisations',function(data) {
             $scope.organisations = data;
         });
     }
 
     $scope.Organisation.delete = function(slug){
-        api.delete('organisations/'+slug,function(data) {
+        api.delete('fundraising/organisations/'+slug,function(data) {
             $scope.organisations = data;
         });
     }
@@ -188,7 +188,7 @@ angular.module('cea', [
             slug: $scope.NewTarget.slug,
             name: $scope.NewTarget.name
         }
-        api.post('targets',data,function(data) {
+        api.post('fundraising/targets',data,function(data) {
             $scope.targets = data;
             $scope.NewTarget = {}
         });
@@ -196,7 +196,7 @@ angular.module('cea', [
 
     $scope.Target.read = function(){
         // Get all targets
-        api.get('targets',function(data) {
+        api.get('fundraising/targets',function(data) {
             $scope.targets = data;
         });
     }
@@ -204,13 +204,13 @@ angular.module('cea', [
     $scope.Target.update = function(id,data){
         data.id = data.id || id
         console.log(data)
-        api.put('targets',data,function(data) {
+        api.put('fundraising/targets',data,function(data) {
             $scope.targets = data;
         });
     }
 
     $scope.Target.delete = function(slug){
-        api.delete('targets/'+slug,function(data) {
+        api.delete('fundraising/targets/'+slug,function(data) {
             $scope.targets = data;
         })
     }
@@ -219,7 +219,7 @@ angular.module('cea', [
     $scope.Progress = {};
     $scope.progress = {};
     $scope.Progress.read = function(){
-        api.get('progress',function(data){
+        api.get('fundraising/progress',function(data){
             $scope.progress = data;  
         })
         
