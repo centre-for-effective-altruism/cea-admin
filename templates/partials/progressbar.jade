@@ -1,9 +1,22 @@
 .row
 	.col-xs-12
 		.progress-bar-wrapper
-			ul
-				li.progress-bar(ng-repeat="bar in progress" class="{{bar.organisationslug}}")
-					.progress-bar-donations(style="width:{{bar.progress}}%")
-						| £{{bar.donations}}
-					.progress-bar-remaining(style="width:{{100-bar.progress}}%")
-						| £{{bar.difference}}
+			ul.list-unstyled
+				li(ng-repeat="bar in progress")
+					h5 {{bar.organisationname}}
+					.progress(class="{{bar.organisationslug}}")
+						.progress-bar.donations(style="width:{{bar.progress}}%")
+							| £{{bar.donations}}
+						.progress-bar.progress-bar-warning.remaining(style="width:{{100-bar.progress}}%")
+							| £{{bar.difference}}
+					.target
+						| {{bar.target}}
+				li
+					h5 {{progressTotal.organisationname}}
+					.progress
+						.progress-bar.donations.total(style="width:{{progressTotal.progress}}%")
+							| £{{progressTotal.donations}}
+						.progress-bar.progress-bar-warning.remaining(style="width:{{100-progressTotal.progress}}%")
+							| £{{progressTotal.difference}}
+					.target
+						| {{progressTotal.target}}

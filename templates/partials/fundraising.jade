@@ -4,23 +4,24 @@ block content
     div(ng-controller="FundraisingController")
         h2 Progress
         include progressbar
-
+        hr
         h2 Donations
         .row
-            .col-md-6.well
-                ul.donations
-                    li.donation(ng-repeat="donation in donations" class="donation-{{donation.id}} {{donation.organisationslug}}")
-                        i.glyphicon.glyphicon-calendar
-                        |  {{donation.timestamp|amDateFormat:'DD MMM YYYY'}} &mdash;
-                        i.glyphicon.glyphicon-user
-                        |  {{donation.donorname}} 
-                        span(ng-show="donation.anonymous") (anonymous)
-                        | &mdash; 
-                        i.glyphicon.glyphicon-briefcase
-                        |  {{donation.organisationname}} &mdash;
-                        | £{{donation.amount}} 
-                        a(ng-click="Donation.delete(donation.id)")
-                            i.glyphicon.glyphicon-trash
+            .col-md-6
+                .well
+                    ul.donations-list
+                        li.donation(ng-repeat="donation in donations" class="donation-{{donation.id}} {{donation.organisationslug}}")
+                            i.glyphicon.glyphicon-calendar
+                            |  {{donation.timestamp|amDateFormat:'DD MMM YYYY'}} &mdash;
+                            i.glyphicon.glyphicon-user
+                            |  {{donation.donorname}} 
+                            span(ng-show="donation.anonymous") (anonymous)
+                            | &mdash; 
+                            i.glyphicon.glyphicon-briefcase
+                            |  {{donation.organisationname}} &mdash;
+                            | £{{donation.amount}} 
+                            a(ng-click="Donation.delete(donation.id)")
+                                i.glyphicon.glyphicon-trash
             .col-md-6
                 form(ng-submit="Donation.create()" ng-model="NewDonation")
                     .form-group

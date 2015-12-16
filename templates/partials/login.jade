@@ -2,9 +2,32 @@ extends partial
 
 block content
 	.container
+		.row(ng-show="validToken === false")
+			.col-xs-12
+				.alert.alert-danger.alert-dismissable
+					button.close(type=button data-dismiss="alert") &times;
+					strong Error:
+					| Invalid token. Please try logging in again.
+		.row(ng-show="tokenRequestSuccess === false")
+			.col-xs-12
+				.alert.alert-danger.alert-dismissable
+					button.close(type=button data-dismiss="alert") &times;
+					strong Error:
+					| There was an error generating your login link.
+
+		.row(ng-show="tokenRequestSuccess === true")
+			.col-xs-12
+				.alert.alert-success.alert-dismissable
+					button.close(type=button data-dismiss="alert") &times;
+					strong Success:
+					| Check your email for your login link
+
+
 		.row
-			form.form
-				.form-group
-					label(for="email") Email Address
-					input.form-control(type="email" name="email")
-				button.btn.btn-primary(type="submit")
+			.col-xs-12
+				form.form(ng-submit="RequestToken()")
+					.form-group
+						label(for="email") Email Address
+						input.form-control(type="hidden" name="origin" ng-model="loginDetails.origin")
+						input.form-control(type="email" name="email" ng-model="loginDetails.email")
+					button.btn.btn-primary(type="submit") Login

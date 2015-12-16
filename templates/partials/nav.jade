@@ -1,0 +1,17 @@
+nav.navbar.navbar-default.navbar-fixed-top#main-nav(ng-controller="NavController")
+  div.container
+    div.navbar-header
+      button(type="button", data-toggle="collapse" data-target="#main-nav-collapse").navbar-toggle.collapsed
+        span.sr-only Toggle navigation
+        | Menu 
+        i.fa.fa-bars
+      a(href='/').navbar-brand
+        img(src="/images/logos/cea-logo-nav.png")
+        //- != siteInfo.title
+    div.collapse.navbar-collapse#main-nav-collapse(ng-if="isAuthenticated")
+      ul.nav.navbar-nav
+        li
+          a(ui-sref="fundraising") Fundraising
+      ul.nav.navbar-nav.navbar-right
+        li
+          a(ng-click="Logout()") Logout

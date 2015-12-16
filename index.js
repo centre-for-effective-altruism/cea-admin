@@ -20,7 +20,7 @@ var markdown = require('metalsmith-markdown')
 var layouts = require('metalsmith-layouts')
 message('Loaded templating')
 
-var ngAnnotate = require('ng-annotate');
+var ngAnnotate = require('browserify-ngannotate');
 var sass  = require('metalsmith-sass');
 var concat = require('metalsmith-concat');
 var autoprefixer = require('metalsmith-autoprefixer');
@@ -36,7 +36,7 @@ var minimatch = require('minimatch');
 message('Loaded utilities')
 
 if(NODE_ENV==='production'){
-    var uglify = require('metalsmith-uglify');
+    // var uglify = require('metalsmith-uglify');
     var cleanCSS = require('metalsmith-clean-css');
     var uncss = require('metalsmith-uncss');
     var htmlMinifier = require("metalsmith-html-minifier");
@@ -69,21 +69,7 @@ var colophonemes = new Metalsmith(__dirname);
         directory: 'templates'
     }))
     .use(logMessage('Built HTML files from templates'))
-    .use(function (files,metalsmith,done){
-        each(Object.keys(files).filter(minimatch.filter('scripts/app.js')),annotate,done)
-
-        function annotate(file, cb){
-            var res = ngAnnotate(files[file].contents.toString(),{
-                add: true
-            });
-            if(res.error) throw Error(res.error);
-            files[file].contents = res.src;
-            cb();
-        }
-
-    })
-    .use(logMessage('Annotated Angular scripts'))
-    .use(function (files,metalsmith,done){
+        .use(function (files,metalsmith,done){
         // Bundle our javascript files using browserify
         each(Object.keys(files).filter(minimatch.filter('scripts/*.bundle.js')),bundle,done)
 
@@ -102,6 +88,8 @@ var colophonemes = new Metalsmith(__dirname);
             var b = new browserify({debug:true});
             // add the entry file to the queue
             b.add(entryFile)
+            // add ngAnnotate transform
+            b.transform(ngAnnotate)
             // add minifier / sourcemap generator
             b.plugin('minifyify', {map: '/'+mapFilePath, minify:minify}); 
             // call the main bundle function
@@ -181,10 +169,10 @@ var colophonemes = new Metalsmith(__dirname);
             }
         }))
         .use(logMessage('Cleaned CSS files'))
-        .use(uglify({
-            removeOriginal: true,
-            filter: "scripts/app.js"
-        }))
+        // .use(uglify({
+        //     removeOriginal: true,
+        //     filter: "scripts/app.js"
+        // }))
         .use(logMessage('Minified Javascript'))
         
     }

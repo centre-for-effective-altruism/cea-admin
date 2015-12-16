@@ -4,9 +4,11 @@ html(ng-app='cea' ng-strict-di)
         title=title
         link(rel='stylesheet', href='/styles/style.min.css', type="text/css", media="screen")
         base(href='/')
+        include favicons
     body(ng-controller="MainController")
+        .container(ng-include="'partials/nav.html'")
         .container
-            h1.site-title {{title}}
+            h1.site-title {{siteTitle}}
         .container(ui-view)
     
     script(src="scripts/vendor.min.js")

@@ -1,0 +1,44 @@
+// COLOURS
+
+// $site-primary: #6c0000;
+// $site-secondary: #edede5;
+// $site-ternary: #26484e;
+// $site-quaternary: #57b6a4;
+// $site-quinary: #e9c46a;
+// $site-senary: #f4a261;
+
+// $site-first: $site-primary;
+// $site-second: $site-secondary;
+// $site-third: $site-ternary;
+// $site-fourth: $site-quaternary;
+// $site-fifth: $site-quinary;
+// $site-sixth: $site-senary;
+
+$site-primary: #00355d;
+$site-secondary: #2c5aa9;
+$site-ternary: #63c6f0;
+
+// coefficients
+$darker-factor: 20%;
+$dark-factor: 10%;
+$lighter-factor: 40%;
+$light-factor: 20%;
+
+// site colours
+$site-light: lighten($site-primary, $light-factor);
+$site-highlight: $site-light;
+$site-lighter: lighten($site-primary, $lighter-factor);
+$site-dark: darken($site-primary, $dark-factor);
+$site-lolight: $site-dark;
+$site-darker: darken($site-primary, $darker-factor);
+
+$cea: #2c5aa9;
+$gwwc: #6C0000;
+$eightythousandhours: #3FBDD1;
+$gpp: #7E95CC;
+$tlycs: #ED1A24;
+$ace: #349895;
+$eao: #383821;
+
+$grid-gutter-width: 30px;
+$content-padding: $grid-gutter-width * 2;

@@ -1,0 +1,38 @@
+
+.donations-list {
+	height:358px;
+	overflow: scroll;
+}
+
+$border: 3px solid #333;
+
+.progress {
+	border-right:3px solid #333;
+	margin-bottom: 0;
+	border-radius: 4px 0 0 4px;
+}
+
+.progress.cea .progress-bar.donations {
+	background-color:#00355d;
+}
+.progress.gwwc .progress-bar.donations {
+	background-color:#6C0000;
+}
+.progress.eighty-thousand-hours .progress-bar.donations {
+	background-color:#3FBDD1;
+}
+.progress.gpp .progress-bar.donations {
+	background-color:#7E95CC;
+}
+.progress.eao .progress-bar.donations {
+	background-color:#383821;
+}
+.progress.total .progress-bar.donations {
+	background-color:#333;
+}
+.target {
+	text-align: right;
+	border-right: $border;
+	color: #333;
+	padding-right: 15px;
+}
